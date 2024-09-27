@@ -28,7 +28,7 @@ By default, the application will only start on a default radio layer (BLE for xG
 |---|---|---|
 | SL_SIDEWALK_LINK_BLE | BLE |  |
 | SL_SIDEWALK_LINK_FSK | FSK |  |
-| SL_SIDEWALK_LINK_CSS | CSS | Registration is not supported on CSS, you first need to register using either BLE or FSK sample app. |
+| SL_SIDEWALK_LINK_CSS | CSS | Registration is not supported on CSS |
 
 On the first boot with CSS modulation, the device will start on either FSK or BLE (depending on device support) to perform registration and switch back to CSS once registration is valid.
 

@@ -33,8 +33,8 @@ The Silicon Labs Amazon Sidewalk stack allows for a wide variety applications to
 3. From the **[Debug Adapters]** panel on the left top corner, select your Silicon Labs Starter Kit.
 4. Ensure that an SDK is selected in the **[General Information]** tile of the **[Overview]** tab.
 5. Select the **[EXAMPLE PROJECTS & DEMOS]** tab in **[Launcher]** perspective.
-6. Under **Provider** (at the bottom of the list), select **sidewalk_applications** and click **[create]** on the desired project.
-   1. If the project you are looking for is not listed in **sidewalk_applications**, it is possible that your debug adapter is not listed as compatible with the application. Try using a Silicon Labs debug adapter first, and check if it is listed in the project's **boardCompatibility** section of [templates.xml](templates.xml).
+6. Under **Provider** (at the bottom of the list), select **amazon-sidewalk-examples** and click **[create]** on the desired project.
+   * If the project you are looking for is not listed in **amazon-sidewalk-examples**, it is possible that your debug adapter is not listed as compatible with the application. Try using a Silicon Labs debug adapter first, and check if it is listed in the project's **boardCompatibility** section of [templates.xml](templates.xml).
 
 ## Documentation ##
 

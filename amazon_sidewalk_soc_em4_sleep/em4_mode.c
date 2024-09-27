@@ -39,7 +39,7 @@
 #include "app_log.h"
 #include "em4_mode.h"
 #include "app_process.h"
-#include "sl_spidrv_exp_config.h"
+#include "app_gpio_config.h"
 
 // -----------------------------------------------------------------------------
 //                              Macros and Typedefs
@@ -180,7 +180,9 @@ void init_GPIO_EM4(void)
   GPIO_EM4EnablePinWakeup(GPIO_IEN_EM4WUIEN4, 0);
 #if defined(SL_RADIO_EXTERNAL)
   // Configure SPIDRV CS pin in pull mode so it stays high when going to EM4 (this keeps the Semtech chip in sleep mode)
-  GPIO_PinModeSet(SL_SPIDRV_EXP_CS_PORT, SL_SPIDRV_EXP_CS_PIN, gpioModeInputPull, 1);
+  GPIO_PinModeSet(SL_SX_CS_PIN, SL_SX_CS_PORT, gpioModeInputPull, 1);
+
+  GPIO_PinModeSet(SL_ANTSW_PORT, SL_ANTSW_PIN, gpioModeDisabled, 0);
 #endif
 }
 
