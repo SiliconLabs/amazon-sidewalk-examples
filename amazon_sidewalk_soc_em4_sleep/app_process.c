@@ -913,12 +913,14 @@ static void em4_sleep(app_context_t *app_context)
   }
   app_log_info("app: stack stopped");
 #if defined(SL_RADIO_EXTERNAL)
-  ret = sid_pal_radio_sleep(WAKEUP_INTERVAL_MS);
-  if(ret != RADIO_ERROR_NONE) {
-      app_log_error("app: fail to make the Semtech chip sleep: %d", (int)ret);
-      return;
+  if(app_context->current_link_type != SID_LINK_TYPE_1) {
+      ret = sid_pal_radio_sleep(WAKEUP_INTERVAL_MS);
+        if(ret != RADIO_ERROR_NONE) {
+            app_log_error("app: fail to make the Semtech chip sleep: %d", (int)ret);
+            return;
+        }
+        app_log_info("app: radio transceiver put to sleep");
   }
-  app_log_info("app: radio transceiver put to sleep");
 #endif
   //De-init the Sidewalk stack
   ret = sid_deinit(app_context->sidewalk_handle);
