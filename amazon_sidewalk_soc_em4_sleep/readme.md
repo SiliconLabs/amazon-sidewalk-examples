@@ -42,6 +42,61 @@ You can adjust the timeout duration for automated sleep, which is set to 30 seco
 
 All functions and details regarding the sleep mechanism are available in the `em4_mode.c` and `em4_mode.h` files.
 
+### Optimize the SX126x Sleep
+
+The SX126x driver supports two sleep modes: cold start (mor epower efficient) and warm start (retains configuration). By default Sidewalk uses the warm start sleep mode to put the SX126x to sleep. While this is useful when the Sidewalk stack is running, when the device goes into EM4 sleep, it would be interesting to have the SX126x in a deeper lever of sleep as well.
+
+To achieve that, we need to modify the PAL layer for Sidewalk to add a deep sleep function into the interface that controls the SX126x driver.
+
+In file `<sidewalk_extension>/component/sources/platform/sid_mcu/semtech/hal/sx126x/sx126x_radio.c`, add the following function:
+
+```c
+int32_t sid_pal_radio_sleep_cold(uint32_t sleep_ms)
+{
+    int32_t err;
+
+    do {
+        if ((err = radio_clear_irq_status_all()) != RADIO_ERROR_NONE) {
+            break;
+        }
+
+
+        if ((err = radio_sx126x_set_radio_mode(false, false)) != RADIO_ERROR_NONE) {
+            break;
+        }
+
+        if (sx126x_set_sleep(&drv_ctx, SX126X_SLEEP_CFG_COLD_START)
+                      != SX126X_STATUS_OK) {
+            err = RADIO_ERROR_HARDWARE_ERROR;
+            break;
+        }
+
+        set_gpio_cfg_sleep(&drv_ctx);
+        drv_ctx.radio_state = SID_PAL_RADIO_SLEEP;
+    } while(0);
+
+    return err;
+}
+```
+
+Then, call this function before going into EM4 sleep in the application. In function `static void em4_sleep(app_context_t *app_context)` of the `app_process.c` file, add the function call as follows:
+
+```c
+    app_log_info("app: stack stopped");
+#if defined(SL_RADIO_EXTERNAL)
+    ret = sid_pal_radio_sleep_cold(WAKEUP_INTERVAL_MS);
+    if(ret != RADIO_ERROR_NONE) {
+        app_log_error("app: fail to make the Semtech chip sleep: %d", (int)ret);
+        return;
+    }
+    app_log_info("app: radio transceiver put to sleep");
+#endif
+    //De-init the Sidewalk stack
+    ret = sid_deinit(app_context->sidewalk_handle);
+```
+
+According to the SX1262 datasheet, you should expect 600nA of idle power consumption while in warm start sleep mode and 160nA while in cold start sleep mode.
+
 ## Interacting with the Endpoint
 
 Send commands to the endpoint using either the main board button presses or CLI commands. 
