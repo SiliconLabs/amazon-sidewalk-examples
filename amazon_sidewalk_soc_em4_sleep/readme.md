@@ -2,7 +2,7 @@
 
 The EM4 Sleep sample application demonstrates power optimization within the Sidewalk context. After a period of inactivity, the application automatically enters the deepest sleep mode (EM4). The device can be awakened or put to sleep using a timer or a button press. Additionally, it features a CLI and button commands for sending messages to the cloud.
 
-> **Ⓘ INFO Ⓘ**: This application supports xG24 and xG28 radio boards on GSDK 4.4.0.
+> **Ⓘ INFO Ⓘ**: This application supports xG24 and xG28 radio boards on SiSDK 2024.6.2.
 
 > **⚠ WARNING ⚠**: Sub-GHz communication occurs in the 900MHz band, a frequency open in the US but may be restricted in other regions.
 
