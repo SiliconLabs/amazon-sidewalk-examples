@@ -10,7 +10,7 @@ The EM4 Sleep sample application demonstrates power optimization within the Side
 
 To successfully interface with Amazon Sidewalk, this example application requires the preparation of cloud (AWS) resources and the addition of device credentials matched to those resources. To perform these tasks and procure access to a Sidewalk gateway, complete the initial software and hardware setup steps described in [Getting Started: Prerequisites](https://docs.silabs.com/amazon-sidewalk/latest/sidewalk-getting-started/prerequisites).
 
-> **Ⓘ INFO Ⓘ**: Make note of the additional sub-GHz considerations discussed in the [Silicon Labs Wireless Development Kit](https://docs.silabs.com/amazon-sidewalk/latest/sidewalk-getting-started/prerequisites#silicon-labs-wireless-development-kit) section of the hardware prequisites.
+> **Ⓘ INFO Ⓘ**: Make note of the additional sub-GHz considerations discussed in the [Silicon Labs Wireless Development Kit](https://docs.silabs.com/amazon-sidewalk/latest/sidewalk-getting-started/prerequisites#silicon-labs-wireless-development-kit) section of the hardware prerequisites.
 
 ## Build the Application
 
@@ -44,7 +44,7 @@ All functions and details regarding the sleep mechanism are available in the `em
 
 ### Optimize the SX126x Sleep
 
-The SX126x driver supports two sleep modes: cold start (mor epower efficient) and warm start (retains configuration). By default Sidewalk uses the warm start sleep mode to put the SX126x to sleep. While this is useful when the Sidewalk stack is running, when the device goes into EM4 sleep, it would be interesting to have the SX126x in a deeper lever of sleep as well.
+The SX126x driver supports two sleep modes: cold start (more power efficient) and warm start (retains configuration). By default Sidewalk uses the warm start sleep mode to put the SX126x to sleep. While this is useful when the Sidewalk stack is running, when the device goes into EM4 sleep, it would be interesting to have the SX126x in a deeper level of sleep as well.
 
 To achieve that, we need to modify the PAL layer for Sidewalk to add a deep sleep function into the interface that controls the SX126x driver.
 
